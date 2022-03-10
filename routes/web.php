@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 
+use App\Http\Controllers\Roles\AdminController;
+use App\Http\Controllers\Roles\ModeratorController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,14 +33,10 @@ Route::prefix('auth')->group(function() {
 
 /* Moderator Routes */
 Route::middleware(['auth', 'auth.moderator'])->prefix('mod')->group(function() {
-  Route::get('/dashboard', function() {
-      echo 'Mod';
-  });
+  Route::get('/dashboard', [ModeratorController::class, 'dashboard'])->name('moderator.dashboard');
 });
 
 /* Admin Routes */
 Route::middleware(['auth', 'auth.admin'])->prefix('admin')->group(function() {
-  Route::get('/dashboard', function() {
-      echo 'Admin';
-  });
+  Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 });
