@@ -26,6 +26,7 @@ class Post extends Model
         'user_id',
         'content',
         'forum_id',
+        'slug',
     ];
 
     /**

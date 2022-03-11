@@ -3,6 +3,7 @@
   <li><a href="/forum">Forum</a></li>
   <li><a href="/news">News</a></li>
   @auth
+    <li><a href="/profile/{{ auth()->user()->name }}">Profile</a></li>
     <li><a href="{{ route('auth.signout') }}">Logout</a></li>
   @endauth
 

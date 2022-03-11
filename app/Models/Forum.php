@@ -25,6 +25,7 @@ class Forum extends Model
         'name',
         'description',
         'category_id',
+        'slug',
     ];
 
     /**
@@ -33,5 +34,10 @@ class Forum extends Model
      public function category()
      {
        return $this->belongsTo(Category::class);
+     }
+
+     public function posts()
+     {
+       return $this->hasMany(Post::class);
      }
 }

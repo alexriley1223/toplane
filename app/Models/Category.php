@@ -24,13 +24,15 @@ class Category extends Model
     protected $fillable = [
         'name',
         'description',
+        'order',
+        'slug',
     ];
 
     /**
      * Get the Parent category of this Forum
      */
-     public function category()
+     public function forums()
      {
-       return $this->hasOne(Forum::class);
+       return $this->hasMany(Forum::class)->orderBy('order');
      }
 }
