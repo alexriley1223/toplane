@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class PostIdentity extends Model
 {
     use HasFactory;
 
@@ -14,7 +14,7 @@ class Post extends Model
      *
      * @var string
      */
-    protected $table = 'posts';
+    protected $table = 'post_identity';
 
     /**
      * The attributes that are mass assignable.
@@ -22,11 +22,9 @@ class Post extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'title',
+        'identity',
         'user_id',
-        'content',
         'forum_id',
-        'slug',
     ];
 
     /**
@@ -35,11 +33,6 @@ class Post extends Model
      public function forum()
      {
        return $this->belongsTo(Forum::class);
-     }
-
-     public function replies()
-     {
-       return $this->hasMany(Reply::class)->orderBy('created_at');
      }
 
      public function user()

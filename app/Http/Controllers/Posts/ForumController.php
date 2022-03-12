@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Posts;
 
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
 use App\Models\Forum;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-
-use App\Http\Controllers\Controller;
+use ForumHelper;
 
 class ForumController extends Controller
 {
@@ -30,7 +30,7 @@ class ForumController extends Controller
       $forum->name        = $request->name;
       $forum->description = $request->description;
       $forum->category_id = $request->category_id;
-      $forum->slug        = $this->generateSlug($request->name, 1);
+      $forum->slug        = ForumHelper::generateSlug(Forum::class, $request->name, 1);
       $forum->order       = $request->order;
 
       $forum->save();
@@ -87,28 +87,5 @@ class ForumController extends Controller
       $forum->forceDelete();
 
       return redirect()->route('admin.dashboard')->with('success', 'Forum permanently deleted successfully');
-    }
-
-    /**
-     * Generate a slug using Laravel's Helper function and some recursion to avoid duplicates
-     * @param  string   $name   String to be converted to slug
-     * @param  integer  $count  Iteration of recursion (if needed)
-     * @return string   Slug to be inserted in database
-     */
-    private function generateSlug($name, $count) {
-      $slugCount = $count;
-      $slug = Str::slug($name, '-');
-
-      if($slugCount != 1) {
-        $slug = $slug . '-' . $slugCount;
-      }
-
-      if(Forum::where('slug', $slug)->count() == 0) {
-        // Good on first run
-        return $slug;
-      } else {
-        // Recursively find a suitable integer to tack onto the end
-        return $this->generateSlug($name, $slugCount+1);
-      }
     }
 }

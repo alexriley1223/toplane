@@ -1,3 +1,38 @@
 // ==========================================================================
 // App / Layout / Footer.scss
 // ==========================================================================
+.footer {
+  &__container {
+    @include xy-grid-container;
+  }
+
+  &__creator {
+    margin: 0;
+  }
+
+  &__flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  &__socials {
+    a {
+      &:not(:last-child) {
+        margin-right: 10px;
+      }
+
+      &:hover{
+        svg {
+          fill: $primary-color;
+        }
+      }
+    }
+    svg {
+      width: 25px;
+      height: 25px;
+      fill: $white;
+      transition: 0.3s;
+    }
+  }
+}

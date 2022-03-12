@@ -1,3 +1,21 @@
 // ==========================================================================
 // Base / Base / Typography.scss
 // ==========================================================================
+
+* {
+  font-family: 'Poppins', sans-serif;
+  color: $white;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: $font-weight-bold;
+}
+
+p, a, li, span {
+  font-weight: $font-weight-normal;
+  font-size: 16px;
+}
+
+a {
+  text-decoration: none;
+}
