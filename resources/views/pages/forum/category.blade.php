@@ -5,6 +5,7 @@
 {{-- Default Section --}}
 <section class="home">
   <h1>Forums</h1>
+  <a href="{{ route('forum') }}">Back to Forums</a>
   <h2>{{ $category->name }}</h2>
   <hr>
   @foreach ($category->forums as $forum)

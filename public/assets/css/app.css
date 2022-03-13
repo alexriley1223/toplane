@@ -2674,6 +2674,23 @@ body {
   background-color: #2B304A;
 }
 
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+footer {
+  flex-shrink: 0;
+}
+
 * {
   font-family: "Poppins", sans-serif;
   color: #DFDBD8;
@@ -2800,4 +2817,32 @@ a {
   height: 25px;
   fill: #DFDBD8;
   transition: 0.3s;
+}
+
+.forum__container {
+  padding-right: 0.625rem;
+  padding-left: 0.625rem;
+  max-width: 75rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media print, screen and (min-width: 40em) {
+  .forum__container {
+    padding-right: 0.9375rem;
+    padding-left: 0.9375rem;
+  }
+}
+
+.user-edit__container {
+  padding-right: 0.625rem;
+  padding-left: 0.625rem;
+  max-width: 75rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media print, screen and (min-width: 40em) {
+  .user-edit__container {
+    padding-right: 0.9375rem;
+    padding-left: 0.9375rem;
+  }
 }

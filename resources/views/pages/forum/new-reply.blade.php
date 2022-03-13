@@ -5,7 +5,7 @@
 {{-- Default Section --}}
 <section class="home">
 
-  <form method="POST" action="{{ route('forum.create-reply') }}">
+  <form method="POST" action="{{ route('forum.reply.create') }}">
     @csrf
     <input type="hidden" id="identity" name="identity" value="{{ $identity->identity }}">
 

@@ -5,6 +5,7 @@
 {{-- Default Section --}}
 <section class="home">
   <h1>{{ $forum->name }}</h1>
+  <a href="/category/{{ $forum->category->slug }}">Back to {{ $forum->category->name }}</a>
   @auth
       <a href="/new-post/{{ $forum->slug }}">New Post +</a>
   @endauth

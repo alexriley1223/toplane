@@ -66,7 +66,7 @@ Route::get('/new-post/{slug}', function($slug){
     abort(404);
   }
 })->middleware('auth');
-Route::post('/create-post', [PostController::class, 'create'])->middleware(['web', 'auth'])->name('forum.create-post');
+Route::post('/create-post', [PostController::class, 'create'])->middleware(['web', 'auth'])->name('forum.post.create');
 
 // New Replies
 Route::get('/new-reply/{slug}', function($slug){
@@ -87,9 +87,9 @@ Route::get('/new-reply/{slug}', function($slug){
     abort(404);
   }
 })->middleware('auth');
-Route::post('/create-reply', [ReplyController::class, 'create'])->middleware(['web', 'auth'])->name('forum.create-reply');
+Route::post('/create-reply', [ReplyController::class, 'create'])->middleware(['web', 'auth'])->name('forum.reply.create');
 
 // Base 'All Categories' view
 Route::get('/forum', function(){
   return view('pages.forum.forum', ['categories' => Category::orderBy('order')->where('deleted_at', null)->get()]);
-});
+})->name('forum');

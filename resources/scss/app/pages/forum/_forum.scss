@@ -1,5 +1,8 @@
 // ==========================================================================
-// App / Pages
+// App / Pages / Forum.scss
 // ==========================================================================
-@import "forum/index";
-@import "user/index";
+.forum {
+  &__container {
+    @include xy-grid-container;
+  }
+}

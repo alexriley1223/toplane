@@ -5,7 +5,7 @@
       <nav class="header__nav">
         <ul>
           <li><a href="{{ route('pages.home') }}">@include('modules.svg.home') <span>Home</span></a></li>
-          <li><a href="/forum">@include('modules.svg.forum') <span>Forum</span></a></li>
+          <li><a href="{{ route('forum') }}">@include('modules.svg.forum') <span>Forum</span></a></li>
           <li><a href="/news">@include('modules.svg.news') <span>News</span></a></li>
         </ul>
       </nav>

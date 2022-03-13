@@ -5,7 +5,7 @@
 {{-- Default Section --}}
 <section class="home">
 
-  <form method="POST" action="{{ route('forum.create-post') }}">
+  <form method="POST" action="{{ route('forum.post.create') }}">
     @csrf
     <input type="text" id="title" name="title" placeholder="Title" required autofocus>
 
