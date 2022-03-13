@@ -5,7 +5,7 @@
 {{-- Default Section --}}
 <section class="profile">
   <h1>{{ $user->name }}</h1>
-  <img src="/storage/{{ $user->picture_url }}" alt="{{ $user->name }}'s Profile Image">
+  <img width="400" height="400" src="/storage/{{ $user->picture_url }}" alt="{{ $user->name }}'s Profile Image">
 
   @if(Auth::user()->id == $user->id )
     <a href="{{ route('user.edit') }}">Update Profile</a>

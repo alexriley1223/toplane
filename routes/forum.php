@@ -38,7 +38,7 @@ Route::get('/category/{slug}', function($slug){
 
 // Individual post
 Route::get('/post/{slug}', function($slug){
-  $post = Post::where('slug', $slug)->where('deleted_at', null)->get()->first();
+  $post = Post::withTrashed()->where('slug', $slug)->get()->first();
 
   if($post) {
     return view('pages.forum.post', [ 'post' => $post ]);
