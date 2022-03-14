@@ -56,6 +56,8 @@ class PostController extends Controller
 
       RateLimiter::hit('create-post:'.Auth::id());
 
+      $postIdentity->delete();
+
       return redirect()->to('post/'.$post->slug);
     }
 }
