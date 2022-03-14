@@ -70,7 +70,7 @@ Route::post('/create-post', [PostController::class, 'create'])->middleware(['web
 
 // New Replies
 Route::get('/new-reply/{slug}', function($slug){
-  $post = Post::where('slug', $slug)->where('deleted_at', null)->get()->first();
+  $post = Post::where('slug', $slug)->where('locked', false)->get()->first();
 
   if($post) {
 

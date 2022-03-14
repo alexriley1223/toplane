@@ -11,12 +11,14 @@
       <h2>{{ $category->name }} (<a href="/category/{{ $category->slug }}">View</a>)</h2>
       <hr>
       @foreach ($category->forums as $forum)
-        <p style="margin-bottom: 0">{{ $forum->name }} (<a href="/forum/{{ $forum->slug }}">View</a>)</p>
-        <p style="margin-top: 0"><small>{{ $forum->description }}</small></p>
+        <div class="forum__row">
+          <p style="margin-bottom: 0"><b>{{ $forum->name }} (<a href="/forum/{{ $forum->slug }}">View</a>)</b></p>
+          <p style="margin-top: 0"><small>{{ $forum->description }}</small></p>
+        </div>
       @endforeach
     @endforeach
   </div>
-  
+
 </section>
 
 @endsection

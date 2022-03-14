@@ -52,6 +52,8 @@ class ReplyController extends Controller
 
       RateLimiter::hit('create-reply:'.Auth::id());
 
+      $replyIdentity->delete();
+
       return redirect()->to('post/'.Post::where('id', $replyIdentity->post_id)->first()->slug);
     }
 }
