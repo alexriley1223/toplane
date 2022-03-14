@@ -48,7 +48,31 @@ class AuthController extends Controller
 
     public function create(Request $request)
     {
-      $user = User::create([
+      $credentials = $request->validate([
+        'email'     => ['required', 'email'],
+        'username'  => ['required', 'max:20'],
+        'password'  => ['required', 'confirmed', 'min:8'],
+      ]);
+
+      $existing = User::where('name', $request->username)->orWhere('email', $request->email)->get()->first();
+
+      if($existing) {
+        if(strtolower($existing->name) == strtolower($request->username))
+        {
+          return back()->withErrors([
+            'username'  => 'Username is already in use.'
+          ]);
+        }
+
+        if(strtolower($existing->email) == strtolower($request->email))
+        {
+          return back()->withErrors([
+            'email'  => 'Email is already in use.'
+          ]);
+        }
+      }
+
+      $user = User::firstOrNew([
         'name' => $request->username,
         'email' => $request->email,
         'password' => Hash::make($request->password)

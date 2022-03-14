@@ -1,36 +1,42 @@
-@extends('layout.base.app', ['title' => 'Register'])
+@extends('layout.base.auth', ['title' => 'Register'])
 
 @section('content')
 
-<form action="{{ route('auth.create') }}" method="POST">
-  @csrf
-  <div>
-      <input type="text" placeholder="Name" id="username" name="username" required autofocus>
-      @if ($errors->has('name'))
-        <span class="text-danger">{{ $errors->first('name') }}</span>
-      @endif
+<section class="auth">
+  <div class="auth__container">
+    <div class="auth__wrapper">
+      <h1>Create an account</h1>
+      <p>Already have an account? <a href="{{ route('auth.login') }}">Log in.</a></p>
+      <form action="{{ route('auth.create') }}" method="POST">
+        @csrf
+        <div>
+            <label for="username">Username</label>
+            <input type="text" placeholder="Username" id="username" name="username" required autofocus>
+        </div>
+        <div>
+            <label for="email">Email</label>
+            <input type="text" placeholder="Email" id="email" name="email" required autofocus>
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input type="password" placeholder="Password" id="password" name="password" required>
+        </div>
+        <div>
+            <label for="password_confirmation">Confirm Password</label>
+            <input type="password" placeholder="Confirm" id="password_confirmation" name="password_confirmation" required>
+        </div>
+        @foreach ($errors->all() as $error)
+          <div>
+            <p>{{ $error }}</p>
+          </div>
+        @endforeach
+        <div>
+            <button type="submit">Sign up</button>
+        </div>
+      </form>
+    </div>
   </div>
-  <div>
-      <input type="text" placeholder="Email" id="email_address" name="email" required autofocus>
-      @if ($errors->has('email'))
-        <span class="text-danger">{{ $errors->first('email') }}</span>
-      @endif
-  </div>
-  <div>
-      <input type="password" placeholder="Password" id="password" name="password" required>
-      @if ($errors->has('password'))
-        <span class="text-danger">{{ $errors->first('password') }}</span>
-      @endif
-  </div>
-  <div>
-      <div class="checkbox">
-        <label><input type="checkbox" name="remember"> Remember Me</label>
-      </div>
-  </div>
-  <div>
-      <button type="submit">Sign up</button>
-  </div>
-</form>
+</section>
 
 @endsection
 

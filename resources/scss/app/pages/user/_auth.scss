@@ -1,16 +1,19 @@
 // ==========================================================================
-// App / Pages / Forum.scss
+// App / Pages / User / Auth.scss
 // ==========================================================================
-.forum {
+
+.auth {
   &__container {
     @include xy-grid-container;
   }
 
-  &__row {
-    padding: 5px;
+  &__wrapper {
+    width: 100%;
 
-    &:nth-child(even) {
-      background-color: #727ba8;
+    @include breakpoint(large)
+    {
+      width: fit-content;
+      margin: 0 auto;
     }
   }
 }

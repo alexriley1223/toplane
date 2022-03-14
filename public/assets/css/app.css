@@ -2832,6 +2832,37 @@ a {
     padding-left: 0.9375rem;
   }
 }
+.forum__row {
+  padding: 5px;
+}
+.forum__row:nth-child(even) {
+  background-color: #727ba8;
+}
+
+.auth__container {
+  padding-right: 0.625rem;
+  padding-left: 0.625rem;
+  max-width: 75rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media print, screen and (min-width: 40em) {
+  .auth__container {
+    padding-right: 0.9375rem;
+    padding-left: 0.9375rem;
+  }
+}
+.auth__wrapper {
+  width: 100%;
+}
+@media print, screen and (min-width: 64em) {
+  .auth__wrapper {
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    margin: 0 auto;
+  }
+}
 
 .user-edit__container {
   padding-right: 0.625rem;

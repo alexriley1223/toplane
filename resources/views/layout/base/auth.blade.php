@@ -3,18 +3,12 @@
 <html lang="en">
     <head>
         @include('layout.doctype', [ 'title' => $title ])
-
-        {{-- Per Page Styles --}}
-        @stack('style')
     </head>
     <body>
-        @include('layout.header')
 
-        <main>
+        <main
             @yield('content')
         </main>
-
-        @include('layout.footer')
 
         <script type="text/javascript" src="{{ mix('assets/js/app.js') }}"></script>
 
