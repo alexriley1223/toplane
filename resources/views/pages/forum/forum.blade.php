@@ -8,11 +8,11 @@
   <div class="forum__container">
     <h1>Forums</h1>
     @foreach ($categories as $category)
-      <h2>{{ $category->name }} (<a href="/category/{{ $category->slug }}">View</a>)</h2>
+      <h2>{{ $category->name }}</h2>
       <hr>
       @foreach ($category->forums as $forum)
         <div class="forum__row">
-          <p style="margin-bottom: 0"><b>{{ $forum->name }} (<a href="/forum/{{ $forum->slug }}">View</a>)</b></p>
+          <a href="/forum/{{ $forum->slug }}"><p style="margin-bottom: 0"><b>{{ $forum->name }}</b></p></a>
           <p style="margin-top: 0"><small>{{ $forum->description }}</small></p>
         </div>
       @endforeach

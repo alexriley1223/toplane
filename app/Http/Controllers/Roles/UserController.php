@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Roles;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rules\Password;
+
+use Hash;
 
 use App\Http\Controllers\Controller;
 
@@ -15,6 +18,24 @@ class UserController extends Controller
     public function editShow()
     {
       return view('user.edit');
+    }
+
+    public function editLogin(Request $request)
+    {
+      $request->validate([
+        'password'  =>  ['nullable', 'confirmed', Password::min(8)->mixedCase()->numbers()]
+      ]);
+
+      $user = User::where('id', Auth::id())->first();
+
+      // Update password
+      if($request->password) {
+        $user->update([
+          'password' => Hash::make($request->password)
+        ]);
+      }
+
+      return redirect()->route('user.edit')->with('success', 'Updated successfully');
     }
 
     public function editProfile(Request $request)

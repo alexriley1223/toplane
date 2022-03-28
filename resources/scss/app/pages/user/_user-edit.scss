@@ -6,4 +6,9 @@
   &__container {
     @include xy-grid-container;
   }
+
+  &__flex {
+    display: flex;
+    justify-content: space-between;
+  }
 }

@@ -11,7 +11,15 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: $font-weight-bold;
 }
 
-p, a, li, span {
+p,
+a,
+li,
+span,
+select,
+button,
+input,
+optgroup,
+textarea {
   font-weight: $font-weight-normal;
   font-size: 16px;
 }

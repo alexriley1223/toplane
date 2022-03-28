@@ -7,6 +7,7 @@ use Hash;
 use Session;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rules\Password;
 
 class AuthController extends Controller
 {
@@ -51,7 +52,7 @@ class AuthController extends Controller
       $credentials = $request->validate([
         'email'     => ['required', 'email'],
         'username'  => ['required', 'max:20'],
-        'password'  => ['required', 'confirmed', 'min:8'],
+        'password'  => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()],
       ]);
 
       $existing = User::where('name', $request->username)->orWhere('email', $request->email)->get()->first();

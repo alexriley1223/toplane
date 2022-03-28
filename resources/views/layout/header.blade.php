@@ -9,8 +9,11 @@
           <li><a href="/news">@include('modules.svg.news') <span>News</span></a></li>
         </ul>
       </nav>
-      <div>
-        <p>Profile</p>
+      <div style="display: flex; align-items: center">
+        @auth
+          <img width="50" height="50" style="border-radius: 99px" src="/storage/{{ auth()->user()->picture_url }}" alt="{{ auth()->user()->name }}'s Profile Picture">
+        @endauth
+        <ul>
         @auth
           <li><a href="/profile/{{ auth()->user()->name }}">Profile</a></li>
           <li><a href="{{ route('auth.signout') }}">Logout</a></li>
@@ -27,6 +30,7 @@
         @mod
           <li><a href="{{ route('moderator.dashboard') }}">Mod Dash</a></li>
         @endmod
+        </ul>
       </div>
     </div>
   </div>

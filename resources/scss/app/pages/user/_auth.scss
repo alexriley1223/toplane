@@ -3,17 +3,39 @@
 // ==========================================================================
 
 .auth {
+  h1 {
+    font-size: 30px;
+  }
+
+  label {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+
   &__container {
     @include xy-grid-container;
   }
 
   &__wrapper {
-    width: 100%;
+    padding: 30px;
+    margin-top: 60px;
+    background: $primary-color;
+    border-radius: 10px;
 
     @include breakpoint(large)
     {
-      width: fit-content;
+      width: 500px;
       margin: 0 auto;
+      margin-top: 60px;
+    }
+  }
+
+  &__input {
+    display: flex;
+    flex-direction: column;
+
+    &:not(:last-child) {
+      margin-bottom: 20px;
     }
   }
 }
