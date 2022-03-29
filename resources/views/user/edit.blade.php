@@ -44,6 +44,7 @@
           </form>
         </div>
 
+        {{-- Forum Information --}}
         <div id="forum" class="tab-item" style="display: none">
           <h2>Create Summoner</h2>
           <form action="{{ route('user.summoner.create')}}" method="POST">
@@ -70,13 +71,18 @@
 
           @foreach($summoners as $summoner)
             @if(!$summoner->validated)
-              <form action="{{ route('user.summoner.validate') }}" method="POST">
+              <form id="summoner-destroy" action="{{ route('user.summoner.destroy') }}" method="POST">
                 @csrf
                 <input type="hidden" name="summoner" value="{{ $summoner->summoner_name }}">
                 <input type="hidden" name="region" value="{{ $summoner->region }}">
-
-                <p>Summoner Name: {{ $summoner->summoner_name }} | Region: {{ $summoner->region }} => <input type="submit" value="Validate"></p>
               </form>
+              <form id="summoner-validate" action="{{ route('user.summoner.validate') }}" method="POST">
+                @csrf
+                <input type="hidden" name="summoner" value="{{ $summoner->summoner_name }}">
+                <input type="hidden" name="region" value="{{ $summoner->region }}">
+              </form>
+
+              <p>Summoner Name: {{ $summoner->summoner_name }} | Region: {{ $summoner->region }} => <input type="submit" value="Validate" form="summoner-validate">&nbsp;<input type="submit" value="Remove" form="summoner-destroy"></p>
             @else
               <form action="{{ route('user.summoner.destroy') }}" method="POST">
                 @csrf
@@ -87,7 +93,6 @@
               </form>
             @endif
           @endforeach
-          <br>
           <p>*Verification Process</p>
           <p>Set your summoner icon to: </p>
           <img src="https://static.wikia.nocookie.net/leagueoflegends/images/f/f6/Blue_Siege_Minion_profileicon.png" alt="Blue Minion Icon">
