@@ -59,7 +59,13 @@ class SummonerController extends Controller
 
       $existingSummoner = Summoner::where('user_id', Auth::id())->where('summoner_name', $request->summoner)->where('region', $request->region)->first();
       if(!$existingSummoner) {
+        RateLimiter::hit('validate-summoner:'.Auth::id());
         return 'Error validating summoner. Please try again.';
+      }
+
+      if($existingSummoner->validated) {
+        RateLimiter::hit('validate-summoner:'.Auth::id());
+        return 'This summoner is already validated!';
       }
 
       $response = Http::get('https://'.$existingSummoner->region.'.api.riotgames.com/lol/summoner/v4/summoners/by-name/' . $existingSummoner->summoner_name, [
