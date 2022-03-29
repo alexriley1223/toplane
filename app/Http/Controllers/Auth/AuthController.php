@@ -51,7 +51,7 @@ class AuthController extends Controller
     {
       $credentials = $request->validate([
         'email'     => ['required', 'email', 'unique:users,email'],
-        'username'  => ['required', 'max:20', 'unique:users,name'],
+        'username'  => ['required', 'alpha_dash', 'max:20', 'unique:users,name'],
         'password'  => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()],
       ]);
 
