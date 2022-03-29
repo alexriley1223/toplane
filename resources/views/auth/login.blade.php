@@ -11,7 +11,7 @@
           @csrf
           <div class="auth__input">
               <label for="email">Email</label>
-              <input type="text" placeholder="Email" id="email" name="email" required autofocus>
+              <input type="text" placeholder="Email" id="email" name="email" value="{{ old('email') }}" required autofocus>
           </div>
           <div class="auth__input">
               <label for="password">Password <a href="">Forgot Password?</a></label>

@@ -9,27 +9,30 @@
       <p>Already have an account? <a href="{{ route('auth.login') }}">Log in.</a></p>
       <form action="{{ route('auth.create') }}" method="POST">
         @csrf
-        <div>
+        <div class="auth__input">
             <label for="username">Username</label>
-            <input type="text" placeholder="Username" id="username" name="username" required autofocus>
+            <input type="text" placeholder="Username" id="username" name="username" value="{{ old('username') }}" required autofocus>
         </div>
-        <div>
+        <div class="auth__input">
             <label for="email">Email</label>
-            <input type="text" placeholder="Email" id="email" name="email" required autofocus>
+            <input type="text" placeholder="Email" id="email" name="email" value="{{ old('email') }}" required autofocus>
         </div>
-        <div>
+        <div class="auth__input">
             <label for="password">Password</label>
             <input type="password" placeholder="Password" id="password" name="password" required>
         </div>
-        <div>
+        <div class="auth__input">
             <label for="password_confirmation">Confirm Password</label>
             <input type="password" placeholder="Confirm" id="password_confirmation" name="password_confirmation" required>
         </div>
-        @foreach ($errors->all() as $error)
-          <div>
-            <p>{{ $error }}</p>
-          </div>
-        @endforeach
+        @if($errors->any())
+          @foreach ($errors->all() as $error)
+            <div class="inline-error inline-error__alert">
+              @include('modules.svg.alert.alert')
+              <p>{{ $error }}</p>
+            </div>
+          @endforeach
+        @endif
         <div>
             <button type="submit">Sign up</button>
         </div>
