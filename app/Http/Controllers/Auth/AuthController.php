@@ -73,11 +73,13 @@ class AuthController extends Controller
         }
       }
 
-      $user = User::firstOrNew([
-        'name' => $request->username,
-        'email' => $request->email,
-        'password' => Hash::make($request->password)
-      ]);
+      $user = new User;
+
+      $user->name = $request->username;
+      $user->email = $request->email;
+      $user->password = Hash::make($request->password);
+
+      $user->save();
 
       return redirect('/');
     }

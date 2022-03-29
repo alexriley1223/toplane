@@ -46,29 +46,52 @@
         </div>
 
         <div id="forum" class="tab-item" style="display: none">
-          <p>Validate Summoner</p>
-          <form action="{{ route('user.summoner.create') }}" method="POST">
+          <h2>Create Summoner</h2>
+          <form action="{{ route('user.summoner.create')}}" method="POST">
             @csrf
             <label for="region">Region</label>
             <select name="region" id="region">
-              <option value="NA">NA</option>
-              <option value="BR">BR</option>
-              <option value="EUNE">EUNE</option>
-              <option value="EUW">EUW</option>
-              <option value="LAN">LAN</option>
-              <option value="LAS">LAS</option>
-              <option value="OCE">OCE</option>
+              <option value="NA1">NA</option>
+              <option value="BR1">BR</option>
+              <option value="EUN1">EUNE</option>
+              <option value="EUW1">EUW</option>
+              <option value="LA1">LAN</option>
+              <option value="LA2">LAS</option>
+              <option value="OC1">OCE</option>
               <option value="RU">RU</option>
-              <option value="TR">TR</option>
-              <option value="JP">JP</option>
-              <option value="KR">KR</option>
+              <option value="TR1">TR</option>
             </select>
             <label for="summoner">Summoner Name</label>
             <input type="text" name="summoner" id="summoner">
+
+            <input type="submit">
           </form>
-          <p>?* Verifying before you submit.</p>
+
+          <h2>Validate Summoner</h2>
+
+          @foreach($summoners as $summoner)
+            @if(!$summoner->validated)
+              <form action="{{ route('user.summoner.validate') }}" method="POST">
+                @csrf
+                <input type="hidden" name="summoner" value="{{ $summoner->summoner_name }}">
+                <input type="hidden" name="region" value="{{ $summoner->region }}">
+
+                <p>Summoner Name: {{ $summoner->summoner_name }} | Region: {{ $summoner->region }} => <input type="submit" value="Validate"></p>
+              </form>
+            @else
+              <form action="{{ route('user.summoner.destroy') }}" method="POST">
+                @csrf
+                <input type="hidden" name="summoner" value="{{ $summoner->summoner_name }}">
+                <input type="hidden" name="region" value="{{ $summoner->region }}">
+
+                <p>Summoner Name: {{ $summoner->summoner_name }} | Region: {{ $summoner->region }} => <input type="submit" value="Remove"></p>
+              </form>
+            @endif
+          @endforeach
+          <br>
+          <p>*Verification Process</p>
           <p>Set your summoner icon to: </p>
-          <img src="https://static.wikia.nocookie.net/leagueoflegends/images/f/f6/Blue_Siege_Minion_profileicon.png" alt="">
+          <img src="https://static.wikia.nocookie.net/leagueoflegends/images/f/f6/Blue_Siege_Minion_profileicon.png" alt="Blue Minion Icon">
 
           <form action="{{ route('user.edit.forum') }}" method="POST">
             @csrf

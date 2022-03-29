@@ -12,12 +12,14 @@ use Hash;
 use App\Http\Controllers\Controller;
 
 use App\Models\User;
+use App\Models\Summoner;
 
 class UserController extends Controller
 {
     public function editShow()
     {
-      return view('user.edit');
+      $summoners = Summoner::where('user_id', Auth::id())->get();
+      return view('user.edit', ['summoners' => $summoners]);
     }
 
     public function editLogin(Request $request)

@@ -2696,6 +2696,10 @@ p {
   margin-top: 0;
 }
 
+input, select, option {
+  color: black;
+}
+
 * {
   font-family: "Poppins", sans-serif;
   color: #E8EBE4;
