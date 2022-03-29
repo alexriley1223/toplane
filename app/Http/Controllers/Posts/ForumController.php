@@ -19,10 +19,10 @@ class ForumController extends Controller
     public function create(Request $request) {
 
       $request->validate([
-        'name'          =>  'required',
-        'description'   =>  'required',
-        'category_id'   =>  'integer|required',
-        'order'         =>  'integer|required',
+        'name'          =>  ['required'],
+        'description'   =>  ['required'],
+        'category_id'   =>  ['required', 'integer'],
+        'order'         =>  ['required', 'integer'],
       ]);
 
       $forum = new Forum;
@@ -46,9 +46,9 @@ class ForumController extends Controller
      */
     public function update(Request $request, Forum $forum) {
       $request->validate([
-        'name'          =>  'required',
-        'description'   =>  'required',
-        'category_id'   =>  'integer|required',
+        'name'          =>  ['required'],
+        'description'   =>  ['required'],
+        'category_id'   =>  ['required', 'integer'],
       ]);
 
       $forum->update($request->all());

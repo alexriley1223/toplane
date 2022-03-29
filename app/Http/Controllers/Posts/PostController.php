@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Posts;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 use App\Models\Post;
 use App\Models\PostIdentity;
@@ -17,31 +18,22 @@ class PostController extends Controller
 {
     public function create(Request $request) {
 
-      // Verify within rate limit
       if (RateLimiter::tooManyAttempts('create-post:'.Auth::id(), $perMinute = 1)) {
         $seconds = RateLimiter::availableIn('create-post:'.Auth::id());
         return 'You may try again in '.$seconds.' seconds.';
       }
 
       // Validate request
+      // TO DO: implement character limits
       $request->validate([
-        'title'         =>  'required',
-        'identity'      =>  'required',
-        'content'       =>  'required',
+        'title'         =>  ['required', 'string'],
+        'identity'      =>  ['required', Rule::exists('post_identity')->where(function ($query) {
+                              return $query->where('user_id', Auth::id());
+                            })],
+        'content'       =>  ['required', 'string'],
       ]);
 
-      // Check PostIdentity
-      // Doing this so new posts are tied to the forum they were clicked on
-
       $postIdentity = PostIdentity::where('identity', $request->identity)->first();
-
-      if($postIdentity) {
-        if($postIdentity->user_id != Auth::id()) {
-          return 'Invalid Reply. Please Try Again.';
-        }
-      } else {
-        return 'Invalid Post. Please Try Again.';
-      }
 
       // Create new post
       $post = new Post;

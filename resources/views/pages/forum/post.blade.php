@@ -8,21 +8,21 @@
   <div class="forum__container">
     @mod
       @if($post->sticky)
-        <a href="/admin/post/unsticky/{{ $post->slug }}">Unsticky Post</a>
+        <a href="/admin/post/unsticky/{{ $post->id }}">Unsticky Post</a>
       @else
-        <a href="/admin/post/sticky/{{ $post->slug }}">Sticky Post</a>
+        <a href="/admin/post/sticky/{{ $post->id }}">Sticky Post</a>
       @endif
 
       @if($post->locked)
-        <a href="/admin/post/unlock/{{ $post->slug }}">Unlock Post</a>
+        <a href="/admin/post/unlock/{{ $post->id }}">Unlock Post</a>
       @else
-        <a href="/admin/post/lock/{{ $post->slug }}">Lock Post</a>
+        <a href="/admin/post/lock/{{ $post->id }}">Lock Post</a>
       @endif
 
       @if($post->deleted_at)
-        <a href="/admin/post/unarchive/{{ $post->slug }}">UnArchive Post</a>
+        <a href="/admin/post/unarchive/{{ $post->id }}">UnArchive Post</a>
       @else
-        <a href="/admin/post/archive/{{ $post->slug }}">Archive Post</a>
+        <a href="/admin/post/archive/{{ $post->id }}">Archive Post</a>
       @endif
 
     @endmod
@@ -44,6 +44,9 @@
     <hr>
     @foreach($post->replies as $reply)
       <div class="forum__row">
+        @mod
+            <a href="/admin/reply/delete/{{ $reply->id }}">Delete Reply</a>  
+        @endmod
         <p><small>By {{ $reply->user->name }} >> {{ date('F d Y g:s a', strtotime($post->created_at)) }} EST</small></p>
         <p>{{ $reply->content }}</p>
       </div>

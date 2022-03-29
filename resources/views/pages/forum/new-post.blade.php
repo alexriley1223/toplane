@@ -15,6 +15,15 @@
 
     <input type="submit">
   </form>
+
+  @if($errors->any())
+    @foreach ($errors->all() as $error)
+      <div class="inline-error inline-error__alert">
+        @include('modules.svg.alert.alert')
+        <p>{{ $error }}</p>
+      </div>
+    @endforeach
+  @endif
 </section>
 
 @endsection

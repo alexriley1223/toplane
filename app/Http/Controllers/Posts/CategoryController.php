@@ -19,9 +19,9 @@ class CategoryController extends Controller
     public function create(Request $request) {
 
       $request->validate([
-        'name'          =>  'required',
-        'description'   =>  'required',
-        'order'         =>  'integer|required',
+        'name'          =>  ['required'],
+        'description'   =>  ['required'],
+        'order'         =>  ['required', 'integer'],
       ]);
 
       $category = new Category;

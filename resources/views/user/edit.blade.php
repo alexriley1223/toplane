@@ -18,7 +18,6 @@
 
       {{-- Content --}}
       <div class="user-edit__content">
-        {{ $errors }}
         {{-- Login Information --}}
         <div id="login" class="tab-item">
           <form action="{{ route('user.edit.login') }}" method="POST">
@@ -101,6 +100,15 @@
       </div>
     </div>
 
+    @if($errors->any())
+      @foreach ($errors->all() as $error)
+        <div class="inline-error inline-error__alert">
+          @include('modules.svg.alert.alert')
+          <p>{{ $error }}</p>
+        </div>
+      @endforeach
+    @endif
+
   </div>
 </section>
 
@@ -112,8 +120,6 @@
 
     var i, tabcontent, tablinks;
     tabitems = document.getElementsByClassName("tab-item");
-
-    console.log(tabitems);
 
     for (i = 0; i < tabitems.length; i++) {
       tabitems[i].style.display = "none";

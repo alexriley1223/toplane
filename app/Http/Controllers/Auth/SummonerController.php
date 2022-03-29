@@ -15,7 +15,7 @@ class SummonerController extends Controller
     public function create(Request $request)
     {
       $request->validate([
-        'summoner'  =>  ['required'],
+        'summoner'  =>  ['required', 'max:16', 'regex:/^[0-9\p{L} _.]+$/'],
         'region'    =>  ['required', Rule::in(['NA1', 'BR1', 'EUN1', 'EUW1', 'LA1', 'LA2', 'OC1', 'RU', 'TR1'])],
       ]);
 
@@ -53,7 +53,7 @@ class SummonerController extends Controller
       }
 
       $request->validate([
-        'summoner'  =>  ['required'],
+        'summoner'  =>  ['required', 'max:16', 'regex:/^[0-9\p{L} _.]+$/'],
         'region'    =>  ['required', Rule::in(['NA1', 'BR1', 'EUN1', 'EUW1', 'LA1', 'LA2', 'OC1', 'RU', 'TR1'])],
       ]);
 
@@ -76,7 +76,7 @@ class SummonerController extends Controller
       // Check icon validation
       if($summonerData['profileIconId'] != 2) {
         RateLimiter::hit('validate-summoner:'.Auth::id());
-        return 'Error validating summoner. Please use the correct icon!';
+        return 'Error validating summoner. Please set the correct icon!';
       }
 
       $existingSummoner->validated = 1;
@@ -90,7 +90,7 @@ class SummonerController extends Controller
     public function destroy(Request $request)
     {
       $request->validate([
-        'summoner'  =>  ['required'],
+        'summoner'  =>  ['required', 'max:16', 'regex:/^[0-9\p{L} _.]+$/'],
         'region'    =>  ['required', Rule::in(['NA1', 'BR1', 'EUN1', 'EUW1', 'LA1', 'LA2', 'OC1', 'RU', 'TR1'])],
       ]);
 

@@ -28,10 +28,10 @@ class UserController extends Controller
         'password'  =>  ['nullable', 'confirmed', Password::min(8)->mixedCase()->numbers()]
       ]);
 
-      $user = User::where('id', Auth::id())->first();
-
       // Update password
       if($request->password) {
+        // As more options become available, move this out
+        $user = User::where('id', Auth::id())->first();
         $user->update([
           'password' => Hash::make($request->password)
         ]);
@@ -46,10 +46,9 @@ class UserController extends Controller
         'profile_picture' =>  'nullable|file|image|max:1024',
       ]);
 
-      $user = User::where('id', Auth::id())->first();
-
       // Change Profile Picture
       if($request->profile_picture) {
+        $user = User::where('id', Auth::id())->first();
         $oldpath = $user->picture_url;
         $path = $request->file('profile_picture')->store('images/avatars');
         $user->picture_url = $path;
