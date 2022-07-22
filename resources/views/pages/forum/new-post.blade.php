@@ -9,8 +9,6 @@
     @csrf
     <input type="text" id="title" name="title" placeholder="Title" required autofocus>
 
-    <input type="hidden" id="identity" name="identity" value="{{ $identity->identity }}">
-
     <input type="text" id="content" name="content" placeholder="Content" required>
 
     <input type="submit">

@@ -7,8 +7,6 @@ use Illuminate\Support\Str;
 use App\Models\Category;
 use App\Models\Forum;
 use App\Models\Post;
-use App\Models\PostIdentity;
-use App\Models\ReplyIdentity;
 
 use App\Http\Controllers\Posts\PostController;
 use App\Http\Controllers\Posts\ReplyController;
@@ -53,15 +51,10 @@ Route::get('/new-post/{slug}', function($slug){
 
   if($forum) {
 
-    $identity = new PostIdentity;
+    // Generate session for post identity
+    session([ 'post' => $forum->id ]);
 
-    $identity->identity = Str::orderedUuid();
-    $identity->user_id  = Auth::id();
-    $identity->forum_id = $forum->id;
-
-    $identity->save();
-
-    return view('pages.forum.new-post', [ 'identity' => $identity ]);
+    return view('pages.forum.new-post');
   } else {
     abort(404);
   }
@@ -74,15 +67,10 @@ Route::get('/new-reply/{slug}', function($slug){
 
   if($post) {
 
-    $identity = new ReplyIdentity;
+    // Generate session for reply identity
+    session([ 'reply' => $post->id ]);
 
-    $identity->identity = Str::orderedUuid();
-    $identity->user_id  = Auth::id();
-    $identity->post_id = $post->id;
-
-    $identity->save();
-
-    return view('pages.forum.new-reply', [ 'identity' => $identity ]);
+    return view('pages.forum.new-reply');
   } else {
     abort(404);
   }

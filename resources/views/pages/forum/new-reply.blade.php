@@ -7,8 +7,6 @@
 
   <form method="POST" action="{{ route('forum.reply.create') }}">
     @csrf
-    <input type="hidden" id="identity" name="identity" value="{{ $identity->identity }}">
-
     <input type="text" id="content" name="content" placeholder="Content" required>
 
     <input type="submit">
