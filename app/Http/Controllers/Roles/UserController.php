@@ -12,7 +12,7 @@ use Hash;
 use App\Http\Controllers\Controller;
 
 use App\Models\User;
-use App\Models\Summoner;
+use App\Models\ProfileModules\Summoner;
 
 class UserController extends Controller
 {

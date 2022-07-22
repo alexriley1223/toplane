@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Roles\UserController;
-use App\Http\Controllers\Auth\SummonerController;
+use App\Http\Controllers\ProfileModules\SummonerController;
 
 use App\Models\User;
 
