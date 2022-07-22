@@ -79,7 +79,7 @@ class ForumController extends Controller
     }
 
     /**
-     * Restore a given Forum entry
+     * Force delete a given Forum entry
      * @param  \App\Models\Forum          $forum
      * @return  \Illuminate\Http\Response
      */
