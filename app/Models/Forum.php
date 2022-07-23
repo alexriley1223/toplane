@@ -27,6 +27,8 @@ class Forum extends Model
         'description',
         'category_id',
         'slug',
+        'order',
+        'image_url'
     ];
 
     /**

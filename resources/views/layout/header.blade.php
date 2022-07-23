@@ -1,37 +1,56 @@
-<header class="header">
-  <div class="header__container">
-    <div class="header__flex">
-      <p class="header__logo logo"><a href="/">Top<span class="logo__emphasis">Lane</span><br><span class="logo__small">.online</span></a></p>
-      <nav class="header__nav">
-        <ul>
-          <li><a href="{{ route('pages.home') }}">@include('modules.svg.home') <span>Home</span></a></li>
-          <li><a href="{{ route('forum') }}">@include('modules.svg.forum') <span>Forum</span></a></li>
-          <li><a href="/news">@include('modules.svg.news') <span>News</span></a></li>
-        </ul>
-      </nav>
-      <div style="display: flex; align-items: center">
-        @auth
-          <img width="50" height="50" style="border-radius: 99px" src="/storage/{{ auth()->user()->picture_url }}" alt="{{ auth()->user()->name }}'s Profile Picture">
-        @endauth
-        <ul>
-        @auth
-          <li><a href="/profile/{{ auth()->user()->name }}">Profile</a></li>
-          <li><a href="{{ route('auth.signout') }}">Logout</a></li>
-        @endauth
-        @guest
-          <li><a href="{{ route('auth.login') }}">Login</a></li>
-          <li><a href="{{ route('auth.registration') }}">Register</a></li>
-        @endguest
+<header>
 
-        @admin
-          <li><a href="{{ route('admin.dashboard') }}">Admin Dash</a></li>
-        @endadmin
+  {{-- Navbar --}}
+  <nav class="relative container mx-auto p-6">
+    {{-- Flex Container --}}
+    <div x-data="{ open: false }" class="flex items-center justify-between">
 
-        @mod
-          <li><a href="{{ route('moderator.dashboard') }}">Mod Dash</a></li>
-        @endmod
-        </ul>
+      {{-- Logo --}}
+      <div>
+        <p><a href="/" class="hover:text-red-600">Toplane</a></p>
       </div>
+
+      {{-- Items --}}
+      <div class="hidden md:flex space-x-6">
+        <a href="{{ route('pages.home') }}" class="hover:text-red-600">Home</a>
+        <a href="{{ route('forum') }}" class="hover:text-red-600">Forum</a>
+        <a href="/news" class="hover:text-red-600">News</a>
+      </div>
+
+      {{-- Profile --}}
+      @auth
+        <div @click="open = !open" class="hidden md:block w-12 h-12 rounded-full overflow-hidden border-2 dark:border-red-600 border-gray-900 cursor-pointer">
+          <img class="w-full h-full object-cover" src="/storage/{{ auth()->user()->picture_url }}" alt="{{ auth()->user()->name }}'s Profile Picture">
+        </div>
+
+        {{-- Profile Dropdown --}}
+        <div
+          x-show="open"
+          x-transition:enter="transition ease-out duration-100"
+          x-transition:enter-start="transform opacity-0 scale-95"
+          x-transition:enter-end="transform opacity-100 scale-100"
+          x-transition:leave="transition ease-in duration-75"
+          x-transition:leave-start="transform opacity-100 scale-100"
+          x-transition:leave-end="transform opacity-0 scale-95"
+          class="md:absolute top-16 right-0 w-60 px-5 py-3 dark:bg-gray-200 bg-white rounded-lg shadow border dark:border-transparent mt-5">
+          <a href="/profile/{{ auth()->user()->name }}" class="block hover:text-red-600">Profile</a>
+          @admin
+            <a href="{{ route('admin.dashboard') }}" class="block hover:text-red-600">Admin Dash</a>
+          @endadmin
+          @mod
+            <a href="{{ route('moderator.dashboard') }}" class="block hover:text-red-600">Mod Dash</a>
+          @endmod
+          <a href="{{ route('auth.signout') }}" class="block hover:text-red-600">Logout</a>
+        </div>
+
+      @endauth
+
+      {{-- Guest Login Button --}}
+      @guest
+        <a href="{{ route('auth.login') }}" class="hidden md:block p-3 px-6 pt-2 text-white bg-red-600 rounded-full baseline hover:bg-red-200">Login</a>
+      @endguest
+
+
     </div>
-  </div>
+  </nav>
 </header>

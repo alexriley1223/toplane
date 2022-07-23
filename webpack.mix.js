@@ -12,4 +12,17 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/assets/js')
-    .sass('resources/scss/app.scss', 'public/assets/css');
+    .postCss("resources/css/app.css", "public/assets/css", [
+      require("tailwindcss"),
+    ]);
+
+
+mix.browserSync({
+	proxy: 'localhost:8229',
+	files: [
+		'app/**/*',
+		'public/**/*',
+		'resources/views/**/*',
+		'routes/**/*'
+	]
+}).version();

@@ -3,38 +3,45 @@
 @section('content')
 
 {{-- Default Section --}}
-<section class="forum">
+<section>
 
-  <div class="forum__container">
-    @mod
-      @if($post->sticky)
-        <a href="/admin/post/unsticky/{{ $post->id }}">Unsticky Post</a>
-      @else
-        <a href="/admin/post/sticky/{{ $post->id }}">Sticky Post</a>
-      @endif
+  <div class="container mx-auto p-6">
+    <a class="block my-5" href="/forum/{{ $post->forum->slug }}"><- Go Back to {{ $post->forum->name }}</a>
 
-      @if($post->locked)
-        <a href="/admin/post/unlock/{{ $post->id }}">Unlock Post</a>
-      @else
-        <a href="/admin/post/lock/{{ $post->id }}">Lock Post</a>
-      @endif
+    <div class="flex flex-row justify-between items-center">
+      <div>
+        <h1 class="font-bold text-3xl mb-1">{{ $post->title }} @if($post->deleted_at) **ARCHIVED** @endif @if($post->sticky) !!STICKIED!! @endif</h1>
+        @if($post->locked)<p><i> This post is locked. </i></p>@endif
+        <p>By <small><a class="hover:text-red-600 font-semibold" href="/profile/{{ $post->user->name }}">{{ $post->user->name }}</a> on {{ date('F d Y g:s a', strtotime($post->created_at)) }} EST</small></p>
+      </div>
+      <div>
+        @mod
+          <div class="flex flex-row">
+            @if($post->sticky)
+              <a class="block w-fit p-3 mx-5 px-6 pt-2 text-white bg-red-600 rounded-full baseline hover:bg-red-200" href="/admin/post/unsticky/{{ $post->id }}">Unsticky Post</a>
+            @else
+              <a class="block w-fit p-3 mx-5 px-6 pt-2 text-white bg-red-600 rounded-full baseline hover:bg-red-200" href="/admin/post/sticky/{{ $post->id }}">Sticky Post</a>
+            @endif
 
-      @if($post->deleted_at)
-        <a href="/admin/post/unarchive/{{ $post->id }}">UnArchive Post</a>
-      @else
-        <a href="/admin/post/archive/{{ $post->id }}">Archive Post</a>
-      @endif
+            @if($post->locked)
+              <a class="block w-fit p-3 mx-5 px-6 pt-2 text-white bg-red-600 rounded-full baseline hover:bg-red-200" href="/admin/post/unlock/{{ $post->id }}">Unlock Post</a>
+            @else
+              <a class="block w-fit p-3 mx-5 px-6 pt-2 text-white bg-red-600 rounded-full baseline hover:bg-red-200" href="/admin/post/lock/{{ $post->id }}">Lock Post</a>
+            @endif
 
-    @endmod
-    <p><a href="/forum/{{ $post->forum->slug }}">Go Back to {{ $post->forum->name }}</a></p>
-    <h1>{{ $post->title }} @if($post->deleted_at) **ARCHIVED** @endif @if($post->sticky) !!STICKIED!! @endif</h1>
-    <p><i>@if($post->locked) This post is locked. @endif</i></p>
+            @if($post->deleted_at)
+              <a class="block w-fit p-3 mx-5 px-6 pt-2 text-white bg-red-600 rounded-full baseline hover:bg-red-200" href="/admin/post/unarchive/{{ $post->id }}">UnArchive Post</a>
+            @else
+              <a class="block w-fit p-3 mx-5 px-6 pt-2 text-white bg-red-600 rounded-full baseline hover:bg-red-200" href="/admin/post/archive/{{ $post->id }}">Archive Post</a>
+            @endif
+          </div>
+        @endmod
+      </div>
+    </div>
 
-    <p><small>By <a href="/profile/{{ $post->user->name }}">{{ $post->user->name }}</a> >> {{ date('F d Y g:s a', strtotime($post->created_at)) }} EST</small></p>
-
-    <pre><code>{{ $post->content }}</code></pre>
+    <pre class="my-10"><code>{{ $post->content }}</code></pre>
     @if(!$post->locked && !$post->trashed())
-      <p><a href="/new-reply/{{ $post->slug }}">Create New Reply</a></p>
+      <a class="block text-center p-3 mx-5 px-6 mb-5 pt-2 text-white bg-red-600 rounded-full baseline hover:bg-red-200" href="/new-reply/{{ $post->slug }}">Create New Reply</a>
 
       @guest
         <p><small>You must be <a href="{{ route('auth.login')}}">logged in</a> to reply.</small></p>
@@ -43,12 +50,20 @@
 
     <hr>
     @foreach($post->replies as $reply)
-      <div class="forum__row">
+      <div class="flex justify-between items-center">
+        <div class="my-5">
+          <p>{{ $reply->content }}</p>
+          <p><small>By <a class="hover:text-red-600 font-semibold" href="/profile/{{ $post->user->name }}">{{ $reply->user->name }}</a> on {{ date('F d Y g:s a', strtotime($post->created_at)) }} EST</small></p>
+        </div>
+
         @mod
-            <a href="/admin/reply/delete/{{ $reply->id }}">Delete Reply</a>  
+          <a class="block right-0 w-fit h-fit p-3 mx-5 px-6 pt-2 text-white bg-red-600 rounded-full baseline hover:bg-red-200" href="/admin/reply/delete/{{ $reply->id }}">Delete Reply</a>
         @endmod
-        <p><small>By {{ $reply->user->name }} >> {{ date('F d Y g:s a', strtotime($post->created_at)) }} EST</small></p>
-        <p>{{ $reply->content }}</p>
+        {{--
+        @if($reply->user_id == auth()->user()->id && auth()->user()->role == 0)
+          <a class="block right-0 w-fit h-fit p-3 mx-5 px-6 pt-2 text-white bg-red-600 rounded-full baseline hover:bg-red-200" href="/admin/reply/delete/{{ $reply->id }}">Delete Reply</a>
+        @endif
+        --}}
       </div>
     @endforeach
   </div>

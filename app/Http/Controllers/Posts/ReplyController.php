@@ -43,6 +43,10 @@ class ReplyController extends Controller
 
       $reply->save();
 
+      // Force updated_at on Post
+
+      Post::where('id', $postId)->get()->first()->touch();
+
       RateLimiter::hit('create-reply:'.Auth::id());
 
       // TO DO - direct to calculated pagination of reply

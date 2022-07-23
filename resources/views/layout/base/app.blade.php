@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" class="h-full">
     <head>
         @include('layout.doctype', [ 'title' => $title ])
 
         {{-- Per Page Styles --}}
         @stack('style')
     </head>
-    <body>
+    <body class="h-full flex flex-col">
         @include('layout.header')
 
-        <main>
+        <main class="flex-auto">
             @yield('content')
         </main>
 
