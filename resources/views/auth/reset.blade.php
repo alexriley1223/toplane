@@ -1,4 +1,4 @@
-@extends('layout.base.auth', ['title' => 'Register'])
+@extends('layout.base.auth', ['title' => 'Reset Password'])
 
 @section('content')
 
@@ -14,8 +14,7 @@
 
           {{-- Heading Wrapper --}}
           <div class="text-gray-600 text-center mb-3 font-bold">
-            <h1 class="text-2xl">Create an Account</h1>
-            <p><small class="font-medium">Already have an account? <a href="{{ route('auth.login') }}" class="font-bold underline">Login</a></small></p>
+            <h1 class="text-2xl">Reset your Password</h1>
           </div>
 
           @if($errors)
@@ -23,13 +22,9 @@
           @endif
 
           {{-- Register Form --}}
-          <form method="POST" action="{{ route('auth.create') }}">
+          <form method="POST" action="{{ route('password.update') }}">
             @csrf
-            {{-- Username --}}
-            <div class="relative w-full mb-3">
-              <label for="username" class="block uppercase text-gray-600 text-xs font-bold mb-2">Username</label>
-              <input type="text" placeholder="Username" name="username" value="{{ old('username') }}" required autofocus class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
-            </div>
+            <input type="hidden" name="token" value="{{ $token }}">
 
             {{-- Email --}}
             <div class="relative w-full mb-3">
@@ -51,9 +46,8 @@
 
             {{-- Submit Button --}}
             <div class="text-center mt-6">
-              <input class="bg-gray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150 cursor-pointer" type="submit" value="Create Account"></input>
+              <input class="bg-gray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150 cursor-pointer" type="submit" value="Reset Password"></input>
             </div>
-
           </form>
 
         </div>
